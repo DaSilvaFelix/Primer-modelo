@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity@1.2.2"></script>
+  <body>
+    <h4>
+      Tiny TFJS example
+      <hr />
+    </h4>
+    <div id="micro-out-div">Training...</div>
+    <script>
+      // minimum positive prediction confidence
+      // If this isn't passed, the default is 0.85
+      const threshold = 0.5;
+
+      toxicity.load(threshold).then((model) => {
+        const sentences = ["fuck"];
+
+        model.classify(sentences).then((predictions) => {
+          // semi-pretty-print results
+          console.log(JSON.stringify(predictions, null, 2));
+        });
+      });
+    </script>
+  </body>
+</html>
