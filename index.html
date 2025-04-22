@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Analizador de Toxicidad</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity@1.2.2"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity@1.2.2"></script>
   <body>
-    <h4>
-      Tiny TFJS example
-      <hr />
-    </h4>
-    <div id="micro-out-div">Training...</div>
-    <script>
-      // minimum positive prediction confidence
-      // If this isn't passed, the default is 0.85
-      const threshold = 0.5;
+    <h2>Detector de Toxicidad</h2>
+    <input type="text" id="input-text" placeholder="Escribe un mensaje..." />
+    <button onclick="analizarTexto()">Analizar</button>
 
-      toxicity.load(threshold).then((model) => {
-        const sentences = ["fuck"];
+    <table class="tabla-estilizada">
+      <thead>
+        <tr>
+          <th>Texto</th>
+          <th>identity_attack</th>
+          <th>insult</th>
+          <th>obscene</th>
+          <th>severe_toxicity</th>
+          <th>sexual_explicit</th>
+          <th>threat</th>
+          <th>toxicity</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-body"></tbody>
+    </table>
 
-        model.classify(sentences).then((predictions) => {
-          // semi-pretty-print results
-          console.log(JSON.stringify(predictions, null, 2));
-        });
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
